@@ -48,7 +48,7 @@ const Index = () => {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-display text-2xl font-bold tracking-tight text-foreground">LD</span>
+          <span className="font-display text-2xl font-bold tracking-tight text-foreground">LDjur</span>
           <button
             onClick={handleBuyClick}
             className="bg-primary text-primary-foreground px-5 py-2 text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"

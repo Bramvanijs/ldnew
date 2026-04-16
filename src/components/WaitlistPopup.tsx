@@ -57,23 +57,16 @@ export function WaitlistPopup({ isOpen, onClose, colorId, size }: WaitlistPopupP
     setError("");
 
     // Submit to Tally via hidden fields mechanism.
-    // Requires hidden fields (color, size, intent) configured in the Tally form dashboard
-    // at https://tally.so — then pass them via window.Tally.openPopup hiddenFields option.
-    // Using mode: 'no-cors' as best-effort direct POST fallback.
-    const params = new URLSearchParams({
-      email,
-      color: color.name,
-      size,
-      intent: intent ?? "niet aangegeven",
-    });
-    fetch(`https://tally.so/r/BzZbl7`, {
+    fetch("https://formspree.io/f/mwvalpev", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params.toString(),
-      mode: "no-cors",
-    }).catch(() => {
-      // fire-and-forget — CORS will block the response but the request goes through
-    });
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        color: color.name,
+        size,
+        intent: intent ?? "niet aangegeven",
+      }),
+    }).catch(() => {});
 
     trackEmailSignup();
     trackWaitlistJoined();

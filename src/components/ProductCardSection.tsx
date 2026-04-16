@@ -11,7 +11,7 @@ interface ProductCardSectionProps {
   onSelectionChange?: (colorId: string, size: string) => void;
 }
 
-const sizes = ["S", "M", "L", "XL"] as const;
+const sizes = ["S", "M", "L", "XL", "XXL"] as const;
 
 export function ProductCardSection({ onBuyClick, onCartClick, onSelectionChange }: ProductCardSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);

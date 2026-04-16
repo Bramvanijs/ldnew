@@ -15,6 +15,7 @@ const maatLabels: Record<string, string> = {
   M: "Medium",
   L: "Large",
   XL: "Extra Large",
+  XXL: "Extra Extra Large",
 };
 
 export function WaitlistPopup({ isOpen, onClose, colorId, size }: WaitlistPopupProps) {

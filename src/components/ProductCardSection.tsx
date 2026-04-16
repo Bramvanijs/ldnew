@@ -8,11 +8,12 @@ import useEmblaCarousel from "embla-carousel-react";
 interface ProductCardSectionProps {
   onBuyClick: () => void;
   onCartClick: () => void;
+  onSelectionChange?: (colorId: string, size: string) => void;
 }
 
 const sizes = ["S", "M", "L", "XL"] as const;
 
-export function ProductCardSection({ onBuyClick, onCartClick }: ProductCardSectionProps) {
+export function ProductCardSection({ onBuyClick, onCartClick, onSelectionChange }: ProductCardSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedColor, setSelectedColor] = useState("blue-stripe");
   const [selectedSize, setSelectedSize] = useState<string>("M");
@@ -30,6 +31,7 @@ export function ProductCardSection({ onBuyClick, onCartClick }: ProductCardSecti
     if (color && color.id !== selectedColor) {
       trackColorSelect(color.name);
       setSelectedColor(color.id);
+      onSelectionChange?.(color.id, selectedSize);
     }
   }, [emblaApi, isMobile, selectedColor]);
 
@@ -77,6 +79,12 @@ export function ProductCardSection({ onBuyClick, onCartClick }: ProductCardSecti
   const handleColorSelect = (color: ColorOption) => {
     trackColorSelect(color.name);
     setSelectedColor(color.id);
+    onSelectionChange?.(color.id, selectedSize);
+  };
+
+  const handleSizeSelect = (newSize: string) => {
+    setSelectedSize(newSize);
+    onSelectionChange?.(selectedColor, newSize);
   };
 
   return (
@@ -142,7 +150,7 @@ export function ProductCardSection({ onBuyClick, onCartClick }: ProductCardSecti
               <button
                   key={size}
                   data-size={size}
-                  onClick={() => setSelectedSize(size)}
+                  onClick={() => handleSizeSelect(size)}
                   className={`w-12 h-12 border text-sm font-medium transition-all ${
                     selectedSize === size
                       ? "border-foreground bg-foreground text-background"

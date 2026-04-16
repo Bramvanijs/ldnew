@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { trackPageView, trackBuyButtonClick, trackAddToCartClick, trackEmailSignup, trackWaitlistJoined } from "@/lib/analytics";
+import { useEffect, useState } from "react";
+import { trackPageView, trackBuyButtonClick, trackAddToCartClick } from "@/lib/analytics";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { TechnologySection } from "@/components/TechnologySection";
@@ -8,39 +8,25 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { ProductCardSection } from "@/components/ProductCardSection";
 import { LifestyleBanner } from "@/components/LifestyleBanner";
 import { Footer } from "@/components/Footer";
-
-declare global {
-  interface Window {
-    Tally?: { openPopup: (id: string, opts?: Record<string, unknown>) => void };
-  }
-}
-
-const openTally = () => {
-  window.Tally?.openPopup('BzZbl7', { width: 480 });
-};
+import { WaitlistPopup } from "@/components/WaitlistPopup";
 
 const Index = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [selectedColorId, setSelectedColorId] = useState("blue-stripe");
+  const [selectedSize, setSelectedSize] = useState("M");
+
   useEffect(() => {
     trackPageView();
-
-    const handleMessage = (e: MessageEvent) => {
-      if (e.data && typeof e.data === 'string' && e.data.includes('Tally.FormSubmitted')) {
-        trackEmailSignup();
-        trackWaitlistJoined();
-      }
-    };
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
   }, []);
 
   const handleBuyClick = () => {
     trackBuyButtonClick();
-    openTally();
+    setPopupOpen(true);
   };
 
   const handleCartClick = () => {
     trackAddToCartClick();
-    openTally();
+    setPopupOpen(true);
   };
 
   return (
@@ -60,12 +46,26 @@ const Index = () => {
 
       <HeroSection onBuyClick={handleBuyClick} />
       <BenefitsSection />
-      <ProductCardSection onBuyClick={handleBuyClick} onCartClick={handleCartClick} />
+      <ProductCardSection
+        onBuyClick={handleBuyClick}
+        onCartClick={handleCartClick}
+        onSelectionChange={(colorId, size) => {
+          setSelectedColorId(colorId);
+          setSelectedSize(size);
+        }}
+      />
       <TechnologySection />
       <TestimonialsSection />
       <HowItWorksSection />
       <LifestyleBanner onBuyClick={handleBuyClick} />
       <Footer onWaitlistClick={handleBuyClick} />
+
+      <WaitlistPopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        colorId={selectedColorId}
+        size={selectedSize}
+      />
     </div>
   );
 };

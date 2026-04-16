@@ -1,5 +1,5 @@
 import { Shield } from "lucide-react";
-import heroImage from "@/assets/hero-model-v2.png";
+import heroImage from "@/assets/hero-model-v3.png";
 
 interface HeroSectionProps {
   onBuyClick: () => void;

@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Shield, ChevronRight } from "lucide-react";
-import { trackProductView, trackAddToCartClick, trackBuyButtonClick, trackColorSelect } from "@/lib/analytics";
+import { trackProductView, trackBuyButtonClick, trackColorSelect } from "@/lib/analytics";
 import { colorOptions, type ColorOption } from "@/components/ColorSelectionSection";
 import { useIsMobile } from "@/hooks/use-mobile";
 import useEmblaCarousel from "embla-carousel-react";
 
 interface ProductCardSectionProps {
   onBuyClick: () => void;
-  onCartClick: () => void;
   onSelectionChange?: (colorId: string, size: string) => void;
 }
 
 const sizes = ["S", "M", "L", "XL", "XXL"] as const;
 
-export function ProductCardSection({ onBuyClick, onCartClick, onSelectionChange }: ProductCardSectionProps) {
+export function ProductCardSection({ onBuyClick, onSelectionChange }: ProductCardSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedColor, setSelectedColor] = useState("blue-stripe");
   const [selectedSize, setSelectedSize] = useState<string>("M");
@@ -69,11 +68,6 @@ export function ProductCardSection({ onBuyClick, onCartClick, onSelectionChange 
   const handleBuy = () => {
     trackBuyButtonClick();
     onBuyClick();
-  };
-
-  const handleCart = () => {
-    trackAddToCartClick();
-    onCartClick();
   };
 
   const handleColorSelect = (color: ColorOption) => {
@@ -182,12 +176,6 @@ export function ProductCardSection({ onBuyClick, onCartClick, onSelectionChange 
               className="bg-primary text-primary-foreground px-8 py-4 text-sm font-medium tracking-wide hover:opacity-90 transition-opacity flex-1"
             >
               In winkelmand
-            </button>
-            <button
-              onClick={handleCart}
-              className="border border-primary text-primary px-8 py-4 text-sm font-medium tracking-wide hover:bg-primary hover:text-primary-foreground transition-colors flex-1"
-            >
-              In winkelwagen
             </button>
           </div>
           <p className="text-xs text-muted-foreground mt-4 flex items-center gap-2">

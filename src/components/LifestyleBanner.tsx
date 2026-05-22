@@ -21,7 +21,7 @@ export function LifestyleBanner({ onBuyClick }: LifestyleBannerProps) {
             onClick={onBuyClick}
             className="bg-primary-foreground text-primary px-8 py-4 text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
           >
-            Bestel nu
+            In winkelmand
           </button>
         </div>
       </div>

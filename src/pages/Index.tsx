@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { trackPageView, trackBuyButtonClick, trackAddToCartClick } from "@/lib/analytics";
+import { trackPageView, trackBuyButtonClick } from "@/lib/analytics";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { TechnologySection } from "@/components/TechnologySection";
@@ -24,11 +24,6 @@ const Index = () => {
     setPopupOpen(true);
   };
 
-  const handleCartClick = () => {
-    trackAddToCartClick();
-    setPopupOpen(true);
-  };
-
   return (
     <div className="min-h-screen bg-background font-body">
       {/* Navigation */}
@@ -48,7 +43,6 @@ const Index = () => {
       <BenefitsSection />
       <ProductCardSection
         onBuyClick={handleBuyClick}
-        onCartClick={handleCartClick}
         onSelectionChange={(colorId, size) => {
           setSelectedColorId(colorId);
           setSelectedSize(size);

@@ -11,11 +11,13 @@ interface ProductCardSectionProps {
 }
 
 const sizes = ["S", "M", "L", "XL", "XXL"] as const;
+const absorptions = ["50 ml", "100 ml", "150 ml", "500 ml"] as const;
 
 export function ProductCardSection({ onBuyClick, onSelectionChange }: ProductCardSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedColor, setSelectedColor] = useState("blue-stripe");
   const [selectedSize, setSelectedSize] = useState<string>("M");
+  const [selectedAbsorption, setSelectedAbsorption] = useState<string>("50 ml");
   const isMobile = useIsMobile();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ active: isMobile });
@@ -137,7 +139,7 @@ export function ProductCardSection({ onBuyClick, onSelectionChange }: ProductCar
           </div>
 
           {/* Size selection */}
-          <div className="mb-8">
+          <div className="mb-6">
             <p className="text-sm font-medium text-foreground mb-3">Maat</p>
             <div className="flex gap-2">
               {sizes.map((size) => (
@@ -152,6 +154,26 @@ export function ProductCardSection({ onBuyClick, onSelectionChange }: ProductCar
                   }`}
                 >
                   {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Absorption selection */}
+          <div className="mb-8">
+            <p className="text-sm font-medium text-foreground mb-3">Absorptie</p>
+            <div className="flex gap-2">
+              {absorptions.map((level) => (
+                <button
+                  key={level}
+                  onClick={() => setSelectedAbsorption(level)}
+                  className={`h-12 px-4 border text-sm font-medium transition-all ${
+                    selectedAbsorption === level
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border text-foreground hover:border-muted-foreground"
+                  }`}
+                >
+                  {level}
                 </button>
               ))}
             </div>

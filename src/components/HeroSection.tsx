@@ -22,7 +22,7 @@ export function HeroSection({ onBuyClick }: HeroSectionProps) {
               onClick={onBuyClick}
               className="bg-primary text-primary-foreground px-8 py-4 text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
             >
-              Koop nu — €29,95
+              In winkelmand — €29,95
             </button>
           </div>
           <p className="text-sm text-muted-foreground flex items-center gap-2">

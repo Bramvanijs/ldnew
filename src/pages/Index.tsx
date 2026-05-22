@@ -39,7 +39,7 @@ const Index = () => {
             onClick={handleBuyClick}
             className="bg-primary text-primary-foreground px-5 py-2 text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
           >
-            Koop nu
+            In winkelmand
           </button>
         </div>
       </nav>

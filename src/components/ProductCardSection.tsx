@@ -181,7 +181,7 @@ export function ProductCardSection({ onBuyClick, onCartClick, onSelectionChange 
               onClick={handleBuy}
               className="bg-primary text-primary-foreground px-8 py-4 text-sm font-medium tracking-wide hover:opacity-90 transition-opacity flex-1"
             >
-              Koop nu
+              In winkelmand
             </button>
             <button
               onClick={handleCart}
